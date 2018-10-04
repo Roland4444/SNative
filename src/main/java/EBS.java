@@ -1,4 +1,6 @@
 import com.sun.jna.*;
+import com.sun.jna.ptr.IntByReference;
+import com.sun.jna.ptr.PointerByReference;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,9 +33,10 @@ public class EBS {
             public int last_error;
         }
         CLibrary INSTANCE = (CLibrary)Native.loadLibrary(("cv"), CLibrary.class);
-
+        boolean  read_file_content(String file_path, PointerByReference content, IntByReference content_size);
         void printf(String format, Object... args);
-        boolean v_create_session(Session session, String config);
+        boolean v_create_session(Pointer session, String config);
+        boolean v_check(Pointer session, byte[] content, int content_size);
     }
 
 
@@ -51,6 +54,6 @@ public class EBS {
         session.version=version;
         session.id = "547875";
 
-        System.out.println(CLibrary.INSTANCE.v_create_session(session, path_config));
+        System.out.println(CLibrary.INSTANCE.v_create_session(session.getPointer(), path_config));
     }
 }
