@@ -29,6 +29,8 @@ object runner extends App{
     def v_create_session(Session: Object , path: String); Boolean
 
   }
+  val myLibraryPath = System.getProperty("user.dir");//or another absolute or relative path
+  System.setProperty("java.library.path", myLibraryPath);
 
   MyLibrary.INSTANCE.SayHello("Roman", "Bro!")
   print(ebsLibrary.INSTANCE.v_create_session(AnyRef, "/home/roland/Downloads/download/.build_l64/tests_data/cv_configuration.json"))

@@ -25,7 +25,7 @@ public class EBSTest {
         session.version=version;
         session.id = "547875";
 
-        assertEquals(true, EBS.CLibrary.INSTANCE.v_create_session(session.getPointer(), path_config));
+        assertEquals(true, EBS.CLibrary.INSTANCE.v_create_session(session, path_config));
     }
 
     @Test
@@ -41,20 +41,20 @@ public class EBSTest {
         version.major=3;
         session.version=version;
         session.id = "547875";
-        Path p = Paths.get(wav);
-        byte[] arr = Files.readAllBytes(p);
-        assertNotEquals(null, arr);
+        PointerByReference ex9ValsRefPtr = new PointerByReference();
+        IntByReference ex9NumValsRef = new IntByReference();
+        assertEquals(true, ReadFile.CLibrary.INSTANCE.read_file_content(wav, ex9ValsRefPtr, ex9NumValsRef.getPointer()));
 
-        assertEquals(true, EBS.CLibrary.INSTANCE.v_check(session.getPointer(), arr, arr.length));
+        System.out.print(ex9NumValsRef.getValue());
+
+
+
+        assertEquals(true, EBS.CLibrary.INSTANCE.v_check(session, ex9ValsRefPtr.getPointer(), 13032));
     }
 
 
-    @Test
-    public void readfile(){
-        String wav = "/home/roland/Downloads/download/.build_l64/tests_data/EE45AEAAD1A31B1B1A45F4B38C98BE62893E590A47C1166061B0B1C52163531C.wav";
-        final PointerByReference ex9ValsRefPtr = new PointerByReference();
-        final IntByReference ex9NumValsRef = new IntByReference();
-        assertEquals(true, EBS.CLibrary.INSTANCE.read_file_content(wav, ex9ValsRefPtr, ex9NumValsRef));
-    }
+
+
+
 
 }

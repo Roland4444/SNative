@@ -10,7 +10,7 @@ public class ReadFile {
 
         CLibrary INSTANCE = (ReadFile.CLibrary)Native.loadLibrary(("readFile"), ReadFile.CLibrary.class);
 
-        boolean  read_file_content(String file_path, PointerByReference content, IntByReference content_size);
+        boolean  read_file_content(String file_path, PointerByReference content, Pointer content_size);
     }
 
 
